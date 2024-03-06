@@ -1,7 +1,5 @@
-interface Page {
-  id: number,
-  acf: any,
-}
+import type { Page } from '../types'
+
 
 const useWpPage = async (): Promise<Page> => {
   const { data } = await useAsyncData<Array<Object>>('page', async () => {

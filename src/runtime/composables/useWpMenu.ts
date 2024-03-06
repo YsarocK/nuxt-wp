@@ -1,10 +1,5 @@
-interface Menu {
-  url: string,
-  title: {
-    rendered: string
-  }
-}
-
+import type { Menu } from '../types'
+ 
 const useWpMenu = async (menu: number): Promise<Menu> => {
   const { data, error } = await useAsyncData<Array<Object>>(`menu-${menu}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress

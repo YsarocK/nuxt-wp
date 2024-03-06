@@ -1,10 +1,4 @@
-interface Post {
-  id: number,
-  title: {
-    rendered: string
-  },
-  acf: any,
-}
+import type { Post } from '../types'
 
 const useWpPost = async () => {
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {

@@ -1,11 +1,4 @@
-interface Post {
-  id: number,
-  title: {
-    rendered: string
-  },
-  featured_media?: number,
-  acf: any,
-}
+import type { Post } from '../types'
 
 
 const useWpPosts = async (type: string = 'posts', maxItems: number = 6) => {
