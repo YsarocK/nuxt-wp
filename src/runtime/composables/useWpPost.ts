@@ -12,7 +12,7 @@ const useWpPost = async (type: string = 'posts',) => {
   }
 
   // @ts-ignore
-  return data.value[0] as Page
+  return data.value[0] as Post
 }
 
 export default useWpPost
