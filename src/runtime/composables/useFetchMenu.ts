@@ -7,10 +7,11 @@ interface Menu {
 
 const useFetchMenu = async (menu: number): Promise<Menu> => {
   const { data, error } = await useAsyncData<Array<Object>>(`menu-${menu}`, async () => {
-    const { API_URL, APPLICATION_PASSWORD } = useRuntimeConfig().public
-    return $fetch(`${API_URL}/menu-items?menus=${menu}`, {
+    const { apiEndpoint } = useRuntimeConfig().public.wordpress
+    const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
+    return $fetch(`${apiEndpoint}/menu-items?menus=${menu}`, {
       headers: {
-        'Authorization': `Basic ${Buffer.from('admin' + ":" + APPLICATION_PASSWORD).toString('base64')}`
+        'Authorization': `Basic ${Buffer.from(applicationUser + ":" + applicationPassword).toString('base64')}`
       }
     })
   })
