@@ -1,5 +1,6 @@
 import { defineNuxtPlugin } from '#app'
+import consola from 'consola'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  console.log('nuxt-wp')
+  consola.log('nuxt-wp')
 })

@@ -26,7 +26,7 @@ export default defineNuxtModule<ModuleOptions>({
     
     // Apply nuxt.config.ts public options
     nuxt.options.runtimeConfig.public.wordpress = {
-      apiEndpoint: options.apiEndpoint,
+      apiEndpoint: process.env.WP_API_ENDPOINT || options.apiEndpoint,
       additonnalQueryParams: options.additonnalQueryParams
     }
 
