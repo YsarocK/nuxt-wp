@@ -1,9 +1,9 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
+  "name": "nuxt-wp",
+  "version": "0.1.0",
   "description": "nuxt-wp",
   "author": "Etienne Moureton",
-  "repository": "your-org/my-module",
+  "repository": "https://github.com/YsarocK/nuxt-wp",
   "license": "MIT",
   "type": "module",
   "exports": {
