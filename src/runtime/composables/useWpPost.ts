@@ -6,7 +6,7 @@ interface Post {
   acf: any,
 }
 
-const useFetchPost = async () => {
+const useWpPost = async () => {
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
     const route = useRoute()
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
@@ -21,4 +21,4 @@ const useFetchPost = async () => {
   return data.value[0] as Page
 }
 
-export default useFetchPost
+export default useWpPost

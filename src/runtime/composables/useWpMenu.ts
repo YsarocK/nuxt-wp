@@ -5,7 +5,7 @@ interface Menu {
   }
 }
 
-const useFetchMenu = async (menu: number): Promise<Menu> => {
+const useWpMenu = async (menu: number): Promise<Menu> => {
   const { data, error } = await useAsyncData<Array<Object>>(`menu-${menu}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
     const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
@@ -20,4 +20,4 @@ const useFetchMenu = async (menu: number): Promise<Menu> => {
   return data.value as Array<Menu>
 }
 
-export default useFetchMenu
+export default useWpMenu
