@@ -9,8 +9,8 @@ interface Post {
 const useFetchPost = async () => {
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
     const route = useRoute()
-    const { API_URL } = useRuntimeConfig().public
-    return $fetch(`${API_URL}/post?slug=${route.path.substring(1)}&acf`)
+    const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
+    return $fetch(`${apiEndpoint}/post?slug=${route.path.substring(1)}${additonnalQueryParams}`)
   })
 
   if(error.value || !data.value) {

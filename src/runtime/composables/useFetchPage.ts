@@ -3,12 +3,11 @@ interface Page {
   acf: any,
 }
 
-
 const useFetchPage = async (): Promise<Page> => {
-  const { data, error } = await useAsyncData<Array<Object>>('page', async () => {
+  const { data } = await useAsyncData<Array<Object>>('page', async () => {
     const route = useRoute()
-    const { apiEndpoint } = useRuntimeConfig().public.wordpress
-    return $fetch(`${apiEndpoint}/pages?slug=${route.path.substring(1)}&acf`)
+    const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
+    return $fetch(`${apiEndpoint}/pages?slug=${route.path.substring(1)}${additonnalQueryParams}`)
   })
 
   // @ts-ignore

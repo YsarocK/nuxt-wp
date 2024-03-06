@@ -17,7 +17,7 @@ export default defineNuxtModule<ModuleOptions>({
     apiEndpoint: undefined,
     applicationUser: undefined,
     applicationPassword: undefined,
-    additonnalQueryParams: ''
+    additonnalQueryParams: '&acf?_embed'
   },
   setup (options, nuxt) {
     if (!process.env.WP_API_ENDPOINT) {
