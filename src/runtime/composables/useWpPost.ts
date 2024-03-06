@@ -1,10 +1,10 @@
 import type { Post } from '../types'
 
-const useWpPost = async () => {
+const useWpPost = async (type: string = 'posts',) => {
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
     const route = useRoute()
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
-    return $fetch(`${apiEndpoint}/post?slug=${route.path.substring(1)}${additonnalQueryParams}`)
+    return $fetch(`${apiEndpoint}/${type}?slug=${route.path.substring(1)}${additonnalQueryParams}`)
   })
 
   if(error.value || !data.value) {
