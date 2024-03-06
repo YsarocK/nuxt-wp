@@ -1,6 +1,5 @@
 import type { Page } from '../types'
 
-
 const useWpPage = async (slug?: string): Promise<Page> => {
   const { data } = await useAsyncData<Array<Object>>('page', async () => {
     const route = useRoute()
