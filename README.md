@@ -1,94 +1,50 @@
-<!--
-Get your module up and running quickly.
+# Composables
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
+## useWpMenu
 
-# My Module
+`useWpMenu` is a composable function that fetches a WordPress menu by its ID. It returns a Promise that resolves to a `Menu` object.
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
-
-## Features
-
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
-
-## Quick Setup
-
-1. Add `my-module` dependency to your project
-
-```bash
-# Using pnpm
-pnpm add -D my-module
-
-# Using yarn
-yarn add --dev my-module
-
-# Using npm
-npm install --save-dev my-module
+```ts
+const menu = await useWpMenu({ menuId })
 ```
 
-2. Add `my-module` to the `modules` section of `nuxt.config.ts`
+**Parameters:**
 
-```js
-export default defineNuxtConfig({
-  modules: [
-    'my-module'
-  ]
-})
+- `menuId` (number): The ID of the WordPress menu to fetch.
+
+## useWpPage
+
+`useWpPage` is a composable function that fetches a WordPress page by its slug. It returns a Promise that resolves to a `Page` object.
+
+```ts
+const page = await useWpPage({ slug })
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+**Parameters:**
 
-## Development
+- `slug` (string, optional): The slug of the WordPress page to fetch. If not provided, the current route path will be used.
 
-```bash
-# Install dependencies
-npm install
+## useWpPost
 
-# Generate type stubs
-npm run dev:prepare
+`useWpPost` is a composable function that fetches a WordPress post by its slug or ID. It returns a Promise that resolves to a `Post` object.
 
-# Develop with the playground
-npm run dev
-
-# Build the playground
-npm run dev:build
-
-# Run ESLint
-npm run lint
-
-# Run Vitest
-npm run test
-npm run test:watch
-
-# Release new version
-npm run release
+```ts
+const post = await useWpPost({ type })
 ```
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
+**Parameters:**
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npmjs.com/package/my-module
+- `type` (string, optional): The type of the WordPress post to fetch. Defaults to 'posts'.
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
+## useWpPosts
 
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com
+`useWpPosts` is a composable function that fetches a list of WordPress posts. It returns a Promise that resolves to an array of `Post` objects.
+
+```ts
+const posts = await useWpPosts({ type, maxItems })
+```
+
+**Parameters:**
+
+- `type` (string, optional): The type of the WordPress post to fetch. Defaults to 'posts'.
+- `maxItems` (number, optional): The amount of posts to fetch. Defaults to 6.

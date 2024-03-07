@@ -2,7 +2,11 @@ import { useAsyncData, useRoute, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Page } from '../types'
 
-const useWpPage = async (slug?: string): Promise<Page> => {
+interface Options {
+  slug?: string
+}
+
+const useWpPage = async ({ slug }: Options = {}): Promise<Page> => {
   const route = useRoute()
   const query = slug || route.path.substring(1)
 

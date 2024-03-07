@@ -2,7 +2,11 @@ import { useAsyncData, useRuntimeConfig, useRoute } from '#imports'
 import consola from 'consola'
 import type { Post } from '../types'
 
-const useWpPost = async (type: string = 'posts') => {
+interface Options {
+  type?: string
+}
+
+const useWpPost = async ({ type }: Options = { type: 'posts' }) => {
   const route = useRoute()
   const query = route.path.substring(1)
 

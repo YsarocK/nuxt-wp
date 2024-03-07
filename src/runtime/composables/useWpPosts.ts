@@ -2,7 +2,12 @@ import { useAsyncData, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Post } from '../types'
 
-const useWpPosts = async (type: string = 'posts', maxItems: number = 6) => {
+interface Options {
+  type?: string
+  maxItems?: number
+}
+
+const useWpPosts = async ({ type, maxItems }: Options = { type: 'posts', maxItems: 6 }) => {
   const { data, error } = await useAsyncData<Array<Post>>('all_posts', async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
     return $fetch(`${apiEndpoint}/${type}?per_page=${maxItems}${additonnalQueryParams}`)

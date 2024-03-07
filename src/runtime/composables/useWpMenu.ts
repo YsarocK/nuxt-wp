@@ -2,7 +2,11 @@ import { useAsyncData, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Menu } from '../types'
  
-const useWpMenu = async (menuId: number): Promise<Menu> => {
+interface Options {
+  menuId: number
+}
+
+const useWpMenu = async ({ menuId }: Options): Promise<Menu> => {
   const { data, error } = await useAsyncData<Array<Menu>>(`menu-${menuId}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
     const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
