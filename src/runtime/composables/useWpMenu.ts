@@ -1,7 +1,8 @@
 import type { Menu } from '../types'
+import consola from 'consola'
  
-const useWpMenu = async (menu: number): Promise<Menu> => {
-  const { data, error } = await useAsyncData<Array<Object>>(`menu-${menu}`, async () => {
+const useWpMenu = async (menuId: number): Promise<Menu> => {
+  const { data, error } = await useAsyncData<Array<Menu>>(`menu-${menuId}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
     const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
 
@@ -9,7 +10,7 @@ const useWpMenu = async (menu: number): Promise<Menu> => {
       consola.error(new Error('WP_APPLICATION_USER or WP_APPLICATION_PASSWORD are not defined'))
     }
 
-    return $fetch(`${apiEndpoint}/menu-items?menus=${menu}`, {
+    return $fetch(`${apiEndpoint}/menu-items?menu=${menuId}`, {
       headers: {
         'Authorization': `Basic ${Buffer.from(applicationUser + ":" + applicationPassword).toString('base64')}`
       }
@@ -17,7 +18,7 @@ const useWpMenu = async (menu: number): Promise<Menu> => {
   })
 
   // @ts-ignore
-  return data.value as Array<Menu>
+  return data.value[0] as Menu
 }
 
 export default useWpMenu

@@ -1,6 +1,5 @@
 import type { Post } from '../types'
 
-
 const useWpPosts = async (type: string = 'posts', maxItems: number = 6) => {
   const { data } = await useAsyncData<Array<Post>>('all_posts', async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
@@ -11,4 +10,4 @@ const useWpPosts = async (type: string = 'posts', maxItems: number = 6) => {
   return data.value as Array<Post>
 }
 
-export default useWpAllPosts
+export default useWpPosts
