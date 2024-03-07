@@ -28,6 +28,47 @@ export default {
 }
 ```
 
+## Options
+
+Here are the options you can provide to the module:
+
+| Option                | Type     | Default | Required | Description                                                                 |
+|-----------------------|----------|---------|----------|-----------------------------------------------------------------------------|
+| `apiEndpoint`         | string   | `''`    | Yes      | The endpoint of your WordPress API.                                         |
+| `additionalQueryParams` | string   | `'&acf?_embed'` | No       | Additional query parameters to append to the API request. |
+| `applicationUser`     | string   | `''`    | No      | The username for the WordPress application.                                 |
+| `applicationPassword` | string   | `''`    | No      | The password for the WordPress application.                                 |
+
+You can provide these options in the `nuxt.config.ts` file like this:
+
+```typescript
+export default {
+  modules: [
+    ['nuxt-wp', {
+      apiEndpoint: 'https://your-wordpress-site.com/wp-json',
+      additionalQueryParams: '&acf?_embed',
+      application
+
+User
+
+: 'your-username',
+      applicationPassword: 'your-password'
+    }]
+  ]
+}
+```
+
+Alternatively, you can set these options directly in your `.env` file:
+
+```env
+WP_API_ENDPOINT=https://your-wordpress-site.com/wp-json
+WP_ADDITIONAL_QUERY_PARAMS=&acf?_embed
+WP_APPLICATION_USER=your-username
+WP_APPLICATION_PASSWORD=your-password
+```
+
+Remember to replace `'https://your-wordpress-site.com/wp-json'`, `'your-username'`, and `'your-password'` with your actual WordPress API endpoint, username, and password.
+
 # Composables
 
 ## useWpMenu
