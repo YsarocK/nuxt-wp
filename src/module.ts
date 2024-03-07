@@ -2,22 +2,25 @@ import { defineNuxtModule, addImportsDir, createResolver } from '@nuxt/kit'
 import consola from 'consola'
 
 export interface ModuleOptions {
-  apiEndpoint?: string,
+  apiEndpoint: string | undefined,
+  additonnalQueryParams: string,
   applicationUser?: string | undefined,
   applicationPassword?: string | undefined,
-  additonnalQueryParams?: string | undefined
 }
 
-export interface RuntimeConfig {
-  public: {
+declare module 'nuxt/schema' {
+  interface RuntimeConfig {
     wordpress: {
-      apiEndpoint: string,
-      additonnalQueryParams: string | undefined
+      applicationUser: string | undefined,
+      applicationPassword: string | undefined,
     }
-  },
-  wordpress: {
-    applicationUser: string | undefined,
-    applicationPassword: string | undefined
+  }
+
+  interface PublicRuntimeConfig {
+    wordpress: {
+      apiEndpoint: string | undefined,
+      additonnalQueryParams: string,
+    }
   }
 }
 
@@ -27,26 +30,26 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'wordpress'
   },
   defaults: {
-    apiEndpoint: undefined,
-    applicationUser: undefined,
-    applicationPassword: undefined,
+    apiEndpoint: process.env.WP_API_ENDPOINT,
+    applicationUser: process.env.WP_APPLICATION_USER,
+    applicationPassword: process.env.WP_APPLICATION_PASSWORD,
     additonnalQueryParams: '&acf?_embed'
   },
   setup (options, nuxt) {
-    if (!process.env.WP_API_ENDPOINT) {
-      consola.warn('WP_API_ENDPOINT is not defined')
+    if (!options.apiEndpoint) {
+      consola.error(new Error('No API Endpoint found. Please provide a valid API Endpoint via nuxt.config.ts or .env file.'))
     }
     
     // Apply nuxt.config.ts public options
     nuxt.options.runtimeConfig.public.wordpress = {
-      apiEndpoint: process.env.WP_API_ENDPOINT || options.apiEndpoint || '',
-      additonnalQueryParams: options.additonnalQueryParams || '&acf?_embed'
+      apiEndpoint: options.apiEndpoint,
+      additonnalQueryParams: options.additonnalQueryParams
     }
 
     // Apply nuxt.config.ts private options
     nuxt.options.runtimeConfig.wordpress = {
-      applicationUser: options.applicationUser || process.env.WP_APPLICATION_USER || '',
-      applicationPassword: options.applicationPassword || process.env.WP_APPLICATION_PASSWORD || ''
+      applicationUser: options.applicationUser,
+      applicationPassword: options.applicationPassword
     }
     
     const resolver = createResolver(import.meta.url)
