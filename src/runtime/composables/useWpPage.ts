@@ -1,4 +1,4 @@
-import { useAsyncData } from '#imports'
+import { useAsyncData, useRoute, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Page } from '../types'
 
