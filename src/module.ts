@@ -3,6 +3,7 @@ import consola from 'consola'
 
 export interface ModuleOptions {
   apiEndpoint: string | undefined,
+  apiEndpointShort: string | undefined,
   additonnalQueryParams: string,
   applicationUser?: string | undefined,
   applicationPassword?: string | undefined,
@@ -19,6 +20,7 @@ declare module 'nuxt/schema' {
   interface PublicRuntimeConfig {
     wordpress: {
       apiEndpoint: string | undefined,
+      apiEndpointShort: string | undefined,
       additonnalQueryParams: string,
     }
   }
@@ -31,6 +33,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   defaults: {
     apiEndpoint: process.env.WP_API_ENDPOINT,
+    apiEndpointShort: process.env.WP_API_ENDPOINT,
     applicationUser: process.env.WP_APPLICATION_USER,
     applicationPassword: process.env.WP_APPLICATION_PASSWORD,
     additonnalQueryParams: '&acf?_embed'
@@ -42,7 +45,8 @@ export default defineNuxtModule<ModuleOptions>({
     
     // Apply nuxt.config.ts public options
     nuxt.options.runtimeConfig.public.wordpress = {
-      apiEndpoint: options.apiEndpoint,
+      apiEndpoint: options.apiEndpoint + '/wp/v2',
+      apiEndpointShort: options.apiEndpointShort,
       additonnalQueryParams: options.additonnalQueryParams
     }
 
@@ -54,5 +58,6 @@ export default defineNuxtModule<ModuleOptions>({
     
     const resolver = createResolver(import.meta.url)
     addImportsDir(resolver.resolve('./runtime', "composables"));
+    addImportsDir(resolver.resolve('./runtime', "components"));
   }
 })

@@ -1,9 +1,10 @@
 <template>
   <div>
     Nuxt module playground!
+    <WpContactForm id="91" />
   </div>
 </template>
 
 <script setup lang="ts">
-const page = await useWpPage()
+import WpContactForm from '../src/runtime/components/WpContactForm.vue'
 </script>
