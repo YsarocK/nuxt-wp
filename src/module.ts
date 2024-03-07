@@ -3,9 +3,9 @@ import consola from 'consola'
 
 export interface ModuleOptions {
   apiEndpoint?: string,
-  applicationUser?: string,
-  applicationPassword?: string,
-  additonnalQueryParams?: string
+  applicationUser?: string | undefined,
+  applicationPassword?: string | undefined,
+  additonnalQueryParams?: string | undefined
 }
 
 export interface RuntimeConfig {
@@ -16,8 +16,8 @@ export interface RuntimeConfig {
     }
   },
   wordpress: {
-    applicationUser: string,
-    applicationPassword: string
+    applicationUser: string | undefined,
+    applicationPassword: string | undefined
   }
 }
 
@@ -34,19 +34,19 @@ export default defineNuxtModule<ModuleOptions>({
   },
   setup (options, nuxt) {
     if (!process.env.WP_API_ENDPOINT) {
-      consola.error(new Error('WP_API_ENDPOINT is not defined'))
+      consola.warn('WP_API_ENDPOINT is not defined')
     }
     
     // Apply nuxt.config.ts public options
     nuxt.options.runtimeConfig.public.wordpress = {
       apiEndpoint: process.env.WP_API_ENDPOINT || options.apiEndpoint || '',
-      additonnalQueryParams: options.additonnalQueryParams
+      additonnalQueryParams: options.additonnalQueryParams || '&acf?_embed'
     }
 
     // Apply nuxt.config.ts private options
     nuxt.options.runtimeConfig.wordpress = {
-      applicationUser: options.applicationUser || process.env.WP_APPLICATION_USER || undefined,
-      applicationPassword: options.applicationPassword || process.env.WP_APPLICATION_PASSWORD || undefined
+      applicationUser: options.applicationUser || process.env.WP_APPLICATION_USER || '',
+      applicationPassword: options.applicationPassword || process.env.WP_APPLICATION_PASSWORD || ''
     }
     
     const resolver = createResolver(import.meta.url)
