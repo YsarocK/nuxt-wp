@@ -1,3 +1,33 @@
+# Installation and Configuration
+
+## Installation
+
+To install this module, you can use npm:
+
+```sh
+npm install nuxt-wp
+```
+
+Or with yarn:
+
+```sh
+yarn add nuxt-wp
+```
+
+## Configuration
+
+To configure this module, you need to add the necessary configuration information to your `nuxt.config.ts` file. Here is an example of configuration:
+
+```typescript
+export default {
+  modules: [
+    ['nuxt-wp', {
+      // options
+    }]
+  ]
+}
+```
+
 # Composables
 
 ## useWpMenu
@@ -36,15 +66,4 @@ const post = await useWpPost({ type })
 
 - `type` (string, optional): The type of the WordPress post to fetch. Defaults to 'posts'.
 
-## useWpPosts
-
-`useWpPosts` is a composable function that fetches a list of WordPress posts. It returns a Promise that resolves to an array of `Post` objects.
-
-```ts
-const posts = await useWpPosts({ type, maxItems })
-```
-
-**Parameters:**
-
-- `type` (string, optional): The type of the WordPress post to fetch. Defaults to 'posts'.
-- `maxItems` (number, optional): The amount of posts to fetch. Defaults to 6.
+Each of these composables requires the `apiEndpoint`, `applicationUser`, and `applicationPassword` to be set in the `nuxt.config.ts` file or in the environment variables.
