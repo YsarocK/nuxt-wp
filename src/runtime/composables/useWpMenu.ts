@@ -32,7 +32,7 @@ const useWpMenu = async ({ menuId }: Options): Promise<Menu> => {
   }
 
   // @ts-ignore
-  return data.value[0] as Menu
+  return data.value as Menu
 }
 
 export default useWpMenu
