@@ -107,4 +107,17 @@ const post = await useWpPost({ type })
 
 - `type` (string, optional): The type of the WordPress post to fetch. Defaults to 'posts'.
 
-Each of these composables requires the `apiEndpoint`, `applicationUser`, and `applicationPassword` to be set in the `nuxt.config.ts` file or in the environment variables.
+## useWpPosts
+
+`useWpPosts` is a composable function that fetches a list of WordPress posts. It returns a Promise that resolves to an array of `Post` objects.
+
+```ts
+import useWpPosts from 'src/runtime/composables/useWpPosts.ts'
+
+const posts = await useWpPosts({ type, maxItems })
+```
+
+**Parameters:**
+
+- `type` (string, optional): The type of the WordPress posts to fetch. Defaults to 'posts'.
+- `maxItems` (number, optional): The number of posts to fetch. Defaults to 6.
