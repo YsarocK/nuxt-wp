@@ -3,12 +3,13 @@ import consola from 'consola'
 import type { Post } from '../types'
 
 interface Options {
-  type?: string
+  type?: string,
+  slug?: string
 }
 
-const useWpPost = async ({ type }: Options = { type: 'posts' }) => {
+const useWpPost = async ({ type, slug }: Options = { type: 'posts' }) => {
   const route = useRoute()
-  const query = route.path.substring(1)
+  const query = slug || route.path.substring(1)
 
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
