@@ -8,6 +8,19 @@ export interface ModuleOptions {
   additonnalQueryParams?: string
 }
 
+export interface RuntimeConfig {
+  public: {
+    wordpress: {
+      apiEndpoint: string,
+      additonnalQueryParams: string | undefined
+    }
+  },
+  wordpress: {
+    applicationUser: string,
+    applicationPassword: string
+  }
+}
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'nuxt-wp',
@@ -26,14 +39,14 @@ export default defineNuxtModule<ModuleOptions>({
     
     // Apply nuxt.config.ts public options
     nuxt.options.runtimeConfig.public.wordpress = {
-      apiEndpoint: process.env.WP_API_ENDPOINT || options.apiEndpoint,
+      apiEndpoint: process.env.WP_API_ENDPOINT || options.apiEndpoint || '',
       additonnalQueryParams: options.additonnalQueryParams
     }
 
     // Apply nuxt.config.ts private options
     nuxt.options.runtimeConfig.wordpress = {
-      applicationUser: process.env.WP_APPLICATION_USER || options.applicationUser,
-      applicationPassword:process.env.WP_APPLICATION_PASSWORD || options.applicationPassword
+      applicationUser: options.applicationUser || process.env.WP_APPLICATION_USER || undefined,
+      applicationPassword: options.applicationPassword || process.env.WP_APPLICATION_PASSWORD || undefined
     }
     
     const resolver = createResolver(import.meta.url)

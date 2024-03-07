@@ -1,7 +1,7 @@
 import type { Page } from '../types'
 
 const useWpPage = async (slug?: string): Promise<Page> => {
-  const { data, error } = await useAsyncData<Array<Object>>('page', async () => {
+  const { data, error } = await useAsyncData<Array<Page>>('page', async () => {
     const route = useRoute()
     const query = slug || route.path.substring(1)
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
