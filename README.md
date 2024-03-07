@@ -112,8 +112,6 @@ const post = await useWpPost({ type })
 `useWpPosts` is a composable function that fetches a list of WordPress posts. It returns a Promise that resolves to an array of `Post` objects.
 
 ```ts
-import useWpPosts from 'src/runtime/composables/useWpPosts.ts'
-
 const posts = await useWpPosts({ type, maxItems })
 ```
 
