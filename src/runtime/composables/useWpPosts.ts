@@ -1,3 +1,4 @@
+import { useAsyncData } from '#imports'
 import type { Post } from '../types'
 
 const useWpPosts = async (type: string = 'posts', maxItems: number = 6) => {

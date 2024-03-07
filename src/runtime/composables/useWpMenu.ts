@@ -1,5 +1,6 @@
-import type { Menu } from '../types'
+import { useAsyncData } from '#imports'
 import consola from 'consola'
+import type { Menu } from '../types'
  
 const useWpMenu = async (menuId: number): Promise<Menu> => {
   const { data, error } = await useAsyncData<Array<Menu>>(`menu-${menuId}`, async () => {

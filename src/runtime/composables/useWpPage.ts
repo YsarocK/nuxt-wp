@@ -1,3 +1,4 @@
+import { useAsyncData } from '#imports'
 import type { Page } from '../types'
 
 const useWpPage = async (slug?: string): Promise<Page> => {
