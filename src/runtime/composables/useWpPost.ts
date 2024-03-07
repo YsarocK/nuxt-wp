@@ -1,15 +1,23 @@
-import { useAsyncData } from '#imports'
+import { useAsyncData, useRuntimeConfig, useRoute } from '#imports'
+import consola from 'consola'
 import type { Post } from '../types'
 
-const useWpPost = async (type: string = 'posts',) => {
+const useWpPost = async (type: string = 'posts') => {
+  const route = useRoute()
+  const query = route.path.substring(1)
+
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
-    const route = useRoute()
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
-    return $fetch(`${apiEndpoint}/${type}?slug=${route.path.substring(1)}${additonnalQueryParams}`)
+    return $fetch(`${apiEndpoint}/${type}?slug=${query})}${additonnalQueryParams}`)
   })
 
-  if(error.value || !data.value) {
-    await navigateTo('/404')
+  if(error.value) {
+    consola.error(error)
+  }
+
+  if(!data.value || data.value.length === 0) {
+    consola.error(`No post with slug or ID "${query}" found`)
+    return {} as Post
   }
 
   // @ts-ignore

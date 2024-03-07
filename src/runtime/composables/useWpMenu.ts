@@ -1,4 +1,4 @@
-import { useAsyncData } from '#imports'
+import { useAsyncData, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Menu } from '../types'
  
@@ -17,6 +17,15 @@ const useWpMenu = async (menuId: number): Promise<Menu> => {
       }
     })
   })
+
+  if(error.value) {
+    consola.error(error)
+  }
+
+  if(!data.value || data.value.length === 0) {
+    consola.error(`No menu with ID "${menuId}" found`)
+    return {} as Menu
+  }
 
   // @ts-ignore
   return data.value[0] as Menu
