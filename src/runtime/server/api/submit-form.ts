@@ -17,11 +17,13 @@ export default defineEventHandler(async (event) => {
     formDataPayload.append(key, body.formData[key])
   }
   
-  return await $fetch(`${apiEndpointShort}/contact-form-7/v1/contact-forms/${body.id}/feedback`, {
+  const res = await $fetch(`${apiEndpointShort}/contact-form-7/v1/contact-forms/${body.id}/feedback`, {
     method: 'POST',
     body: formDataPayload,
     headers: {
       'Authorization': `Basic ${Buffer.from(applicationUser + ":" + applicationPassword).toString('base64')}`
     }
   })
+
+  return res
 })
