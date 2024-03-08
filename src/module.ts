@@ -1,4 +1,4 @@
-import { defineNuxtModule, addImportsDir, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, addImportsDir, createResolver, addComponentsDir, addServerHandler } from '@nuxt/kit'
 import consola from 'consola'
 
 export interface ModuleOptions {
@@ -10,18 +10,18 @@ export interface ModuleOptions {
 }
 
 declare module 'nuxt/schema' {
-  interface RuntimeConfig {
-    wordpress: {
-      applicationUser: string | undefined,
-      applicationPassword: string | undefined,
-    }
-  }
-
   interface PublicRuntimeConfig {
     wordpress: {
       apiEndpoint: string | undefined,
       apiEndpointShort: string | undefined,
       additonnalQueryParams: string,
+    }
+  }
+
+  interface RuntimeConfig {
+    wordpress: {
+      applicationUser: string | undefined,
+      applicationPassword: string | undefined,
     }
   }
 }
@@ -57,7 +57,13 @@ export default defineNuxtModule<ModuleOptions>({
     }
     
     const resolver = createResolver(import.meta.url)
+    addComponentsDir({
+      path: resolver.resolve('./runtime', "components"),
+      prefix: 'Wp'
+    })
     addImportsDir(resolver.resolve('./runtime', "composables"));
-    addImportsDir(resolver.resolve('./runtime', "components"));
+    addServerHandler({ route:"/api/submit-form", method:"post", handler: resolver.resolve('./runtime/server/api/submit-form') });
   }
 })
+
+export {}
