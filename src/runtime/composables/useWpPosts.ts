@@ -4,13 +4,22 @@ import type { Post } from '../types'
 
 interface Options {
   type?: string
-  maxItems?: number
+  maxItems?: number,
+  filters?: Record<string, string>,
+  categories?: Array<number>
 }
 
-const useWpPosts = async ({ type, maxItems }: Options = { type: 'posts', maxItems: 6 }) => {
+const useWpPosts = async ({ type = 'posts', maxItems = 6, filters = {}, categories = [] }: Options = {}) => {
   const { data, error } = await useAsyncData<Array<Post>>('all_posts', async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
-    return $fetch(`${apiEndpoint}/${type}?per_page=${maxItems}${additonnalQueryParams}`)
+    
+    const params = new URLSearchParams({
+      per_page: String(maxItems),
+      ...filters,
+      categories: categories.join(',')
+    });
+  
+    return $fetch(`${apiEndpoint}/${type}?${params.toString()}${additonnalQueryParams}`)
   })
 
   if(error.value) {
