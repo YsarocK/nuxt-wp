@@ -5,11 +5,10 @@ import type { Post } from '../types'
 interface Options {
   type?: string,
   slug?: string,
-  filters?: Record<string, string>,
   categories?: Array<number>
 }
 
-const useWpPost = async ({ type = 'posts', slug, filters = {}, categories = [] }: Options = {}) => {
+const useWpPost = async ({ type = 'posts', slug, categories = [] }: Options = {}) => {
   const route = useRoute()
   const query = slug || route.path.substring(1)
 
@@ -18,7 +17,6 @@ const useWpPost = async ({ type = 'posts', slug, filters = {}, categories = [] }
     
     const params = new URLSearchParams({
       slug: String(slug),
-      ...filters,
       categories: categories.join(',')
     });
   
