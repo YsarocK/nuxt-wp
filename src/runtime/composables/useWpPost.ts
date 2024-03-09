@@ -5,10 +5,9 @@ import type { Post } from '../types'
 interface Options {
   type?: string,
   slug?: string,
-  categories?: Array<number>
 }
 
-const useWpPost = async ({ type = 'posts', slug, categories = [] }: Options = {}) => {
+const useWpPost = async ({ type = 'posts', slug }: Options = {}) => {
   const route = useRoute()
   const query = slug || route.path.substring(1)
 
@@ -17,7 +16,6 @@ const useWpPost = async ({ type = 'posts', slug, categories = [] }: Options = {}
     
     const params = new URLSearchParams({
       slug: String(slug),
-      categories: categories.join(',')
     });
   
     return $fetch(`${apiEndpoint}/${type}?${params.toString()}${additonnalQueryParams}`)
