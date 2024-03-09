@@ -47,11 +47,7 @@ export default {
     ['nuxt-wp', {
       apiEndpoint: 'https://your-wordpress-site.com/wp-json',
       additionalQueryParams: '&acf?_embed',
-      application
-
-User
-
-: 'your-username',
+      applicationUser: 'your-username',
       applicationPassword: 'your-password'
     }]
   ]
