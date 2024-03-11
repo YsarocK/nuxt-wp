@@ -12,7 +12,7 @@ const useWpPost = async ({ type = 'posts', slug }: Options = {}) => {
   const query = slug || route.path.substring(1)
 
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
-    const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public
+    const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
     
     const params = new URLSearchParams({
       slug: String(slug),
