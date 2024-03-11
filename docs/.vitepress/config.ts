@@ -42,7 +42,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/YsarocK/nuxt-ws' }
+      { icon: 'github', link: 'https://github.com/YsarocK/nuxt-wp' }
     ]
   }
 })
