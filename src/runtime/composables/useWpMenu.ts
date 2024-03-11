@@ -15,7 +15,7 @@ const useWpMenu = async ({ menuId }: Options): Promise<Menu> => {
       consola.error(new Error('WP_APPLICATION_USER or WP_APPLICATION_PASSWORD are not defined'))
     }
 
-    return $fetch(`${apiEndpoint}/menu-items?menu=${menuId}`, {
+    return $fetch(`${apiEndpoint}/menu-items?menus=${menuId}`, {
       headers: {
         'Authorization': `Basic ${Buffer.from(applicationUser + ":" + applicationPassword).toString('base64')}`
       }
