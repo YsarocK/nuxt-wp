@@ -59,5 +59,5 @@ export type Page = {
           templated: boolean
       }[]
   },
-  acf: boolean
+  acf: any
 }

@@ -37,5 +37,5 @@ export type Post = {
             templated: boolean
         }[]
     },
-    acf: boolean
+    acf: any
 }
