@@ -1,3 +1,6 @@
+import { defineEventHandler } from 'h3'
+
+
 export default defineEventHandler(async (event) => {  
   if(event.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 })

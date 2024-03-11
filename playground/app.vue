@@ -1,9 +1,10 @@
 <template>
   <div>
     Nuxt module playground!
-    <WpCF7Form id=91 wpcf7_unit_tag="18eee5b" />
   </div>
 </template>
 
 <script setup lang="ts">
+const res = await useWpPage()
+console.log(res)
 </script>
