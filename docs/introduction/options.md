@@ -8,6 +8,7 @@
 | `additionalQueryParams` | string   | `'&acf?_embed'` | No       | Additional query parameters to append to the API requests. |
 | `applicationUser`     | string   | `''`    | No      | The username for the WordPress application.                                 |
 | `applicationPassword` | string   | `''`    | No      | The password for the WordPress application.                                 |
+| `homeSlug` | string   | `'home'`    | No      | The slug for the WordPress homepage.                                 |
 
 ## Set options
 ::: code-group

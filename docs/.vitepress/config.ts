@@ -31,6 +31,7 @@ export default defineConfig({
           { text: 'useWpPage', link: "composables/useWpPage" },
           { text: 'useWpPost', link: "composables/useWpPost" },
           { text: 'useWpPosts', link: "composables/useWpPosts" },
+          { text: 'useWpTaxonomy', link: "composables/useWpTaxonomy" },
         ]
       },
       {
