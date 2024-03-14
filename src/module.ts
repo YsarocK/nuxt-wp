@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
     applicationUser: process.env.WP_APPLICATION_USER,
     applicationPassword: process.env.WP_APPLICATION_PASSWORD,
     additonnalQueryParams: '&acf?_embed',
-    homeSlug: 'home'
+    homeSlug: '/home'
 
   },
   setup (options, nuxt) {
