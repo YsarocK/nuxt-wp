@@ -8,7 +8,11 @@ interface Options {
 
 const useWpPage = async ({ slug }: Options = {}): Promise<Page> => {
   const route = useRoute()
-  const query = slug || route.path.substring(1)
+  let query = slug || route.path.substring(1)
+
+  if(query === '/') {
+    query = useRuntimeConfig().public.wordpress.homeSlug
+  }
 
   const { data, error } = await useAsyncData<Array<Page>>('page', async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress

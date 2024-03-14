@@ -7,6 +7,7 @@ export interface ModuleOptions {
   additonnalQueryParams: string,
   applicationUser?: string | undefined,
   applicationPassword?: string | undefined,
+  homeSlug: string,
 }
 
 declare module 'nuxt/schema' {
@@ -15,6 +16,7 @@ declare module 'nuxt/schema' {
       apiEndpoint: string | undefined,
       apiEndpointShort: string | undefined,
       additonnalQueryParams: string,
+      homeSlug: string,
     }
   }
 
@@ -36,7 +38,9 @@ export default defineNuxtModule<ModuleOptions>({
     apiEndpointShort: process.env.WP_API_ENDPOINT,
     applicationUser: process.env.WP_APPLICATION_USER,
     applicationPassword: process.env.WP_APPLICATION_PASSWORD,
-    additonnalQueryParams: '&acf?_embed'
+    additonnalQueryParams: '&acf?_embed',
+    homeSlug: 'home'
+
   },
   setup (options, nuxt) {
     if (!options.apiEndpoint) {
@@ -47,7 +51,8 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.public.wordpress = {
       apiEndpoint: options.apiEndpoint + '/wp/v2',
       apiEndpointShort: options.apiEndpointShort,
-      additonnalQueryParams: options.additonnalQueryParams
+      additonnalQueryParams: options.additonnalQueryParams,
+      homeSlug: options.homeSlug
     }
 
     // Apply nuxt.config.ts private options
