@@ -11,7 +11,7 @@ const useWpPost = async ({ type = 'posts', id }: Options = {}) => {
   const route = useRoute()
   const query = id || route.path.substring(1)
 
-  const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
+  const { data, error } = await useAsyncData<Post>('post', async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
   
     return $fetch(`${apiEndpoint}/${type}/${query}`)
@@ -21,13 +21,8 @@ const useWpPost = async ({ type = 'posts', id }: Options = {}) => {
     consola.error(error)
   }
 
-  if(!data.value || data.value.length === 0) {
-    consola.error(`No post with slug or ID "${query}" found`)
-    return {} as Post
-  }
-
   // @ts-ignore
-  return data.value[0] as Post
+  return data.value as Post
 }
 
 export default useWpPost
