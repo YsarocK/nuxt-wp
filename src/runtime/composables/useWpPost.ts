@@ -25,7 +25,7 @@ const useWpPost = async ({ type = 'posts', id, slug }: Options = {}) => {
   }
 
   // @ts-ignore
-  return data.value as Post
+  return id ? data.value as Post : data.value[0] as Post
 }
 
 export default useWpPost
