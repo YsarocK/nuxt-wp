@@ -4,7 +4,7 @@ import type { Post } from '../types'
 
 interface Options {
   type?: string,
-  id?: SVGAnimatedNumberList,
+  id?: number | string,
 }
 
 const useWpPost = async ({ type = 'posts', id }: Options = {}) => {
