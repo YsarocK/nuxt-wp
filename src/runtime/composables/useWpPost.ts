@@ -12,9 +12,9 @@ const useWpPost = async ({ type = 'posts', id }: Options = {}) => {
   const query = id || route.path.substring(1)
 
   const { data, error } = await useAsyncData<Array<Post>>('post', async () => {
-    const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
+    const { apiEndpoint } = useRuntimeConfig().public.wordpress
   
-    return $fetch(`${apiEndpoint}/${type}/${query}${additonnalQueryParams}`)
+    return $fetch(`${apiEndpoint}/${type}/${query}`)
   })
 
   if(error.value) {
