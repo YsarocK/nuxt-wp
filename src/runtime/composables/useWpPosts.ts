@@ -9,7 +9,7 @@ interface Options {
 }
 
 const useWpPosts = async ({ type = 'posts', maxItems = 6, categories = [] }: Options = {}) => {
-  const { data, error } = await useAsyncData<Array<Post>>('all_posts', async () => {
+  const { data, error } = await useAsyncData<Array<Post>>(`all_posts_${type}`, async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
     
     const params = new URLSearchParams({
