@@ -14,7 +14,7 @@ const useWpPage = async ({ slug }: Options = {}): Promise<Page> => {
     query = useRuntimeConfig().public.wordpress.homeSlug
   }
 
-  const { data, error } = await useAsyncData<Array<Page>>('page', async () => {
+  const { data, error } = await useAsyncData<Array<Page>>(`page-${query}`, async () => {
     const { apiEndpoint, additonnalQueryParams } = useRuntimeConfig().public.wordpress
     return $fetch(`${apiEndpoint}/pages?slug=${query}${additonnalQueryParams}`)
   })
