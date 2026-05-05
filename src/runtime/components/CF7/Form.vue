@@ -12,13 +12,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref, reactive } from 'vue';
+import { useAsyncData } from '#imports';
 import consola from 'consola';
-import { WpCF7Email, WpCF7Submit, WpCF7Text, WpCF7Textarea } from '#components';
+import { WpCF7Acceptance, WpCF7Checkbox, WpCF7Email, WpCF7Select, WpCF7Submit, WpCF7Text, WpCF7Textarea } from '#components';
 
 const getFieldComponent = (type: string) => {
   switch (type) {
+    case 'acceptance':
+      return WpCF7Acceptance
+    case 'checkbox':
+      return WpCF7Checkbox
     case 'email':
       return WpCF7Email
+    case 'select':
+      return WpCF7Select
     case 'submit':
       return WpCF7Submit
     case 'text':

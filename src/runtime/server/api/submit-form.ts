@@ -1,18 +1,18 @@
-import { defineEventHandler } from 'h3'
+import { defineEventHandler, readBody } from 'h3'
+import { useRuntimeConfig } from '#imports'
 
-
-export default defineEventHandler(async (event) => {  
-  if(event.method !== 'POST') {
+export default defineEventHandler(async (event) => {
+  if (event.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 })
   }
 
-  const { apiEndpointShort } = useRuntimeConfig().public.wordpress
-  const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
+  const config = useRuntimeConfig(event)
+  const { apiEndpointShort } = config.public.wordpress
+  const { applicationUser, applicationPassword } = config.wordpress
 
   const body: {
     id: string | number
     formData: Record<string, string>
-  
   } = await readBody(event)
 
   const formDataPayload = new FormData()
