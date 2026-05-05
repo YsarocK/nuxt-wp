@@ -2,7 +2,7 @@
   <div>
     <h3>{{ form.title }}</h3>
     <form @submit="(e) => handleSubmit(e)" class="wpcf">
-      <div v-for="field in fields" :class="`wpcf-field wpcf-field--${field.type}`">
+      <div v-for="field in fields" :key="field.name" :class="`wpcf-field wpcf-field--${field.type}`">
         <component :is="getFieldComponent(field.type)" :field="field" v-model="formData[field.name]" />
         <p class="wpcf-field-error" v-if="field.error">{{ field.error }}</p>
       </div>
@@ -36,14 +36,7 @@ const { id, wpcf7_unit_tag } = defineProps<{
 }>()
 
 const { data: form, error } = await useAsyncData<any>(`form-${id}`, async () => {
-  const { apiEndpointShort } = useRuntimeConfig().public.wordpress
-  const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
-
-  return $fetch(`${apiEndpointShort}/contact-form-7/v1/contact-forms/${id}`, {
-    headers: {
-      'Authorization': `Basic ${Buffer.from(applicationUser + ":" + applicationPassword).toString('base64')}`
-    }
-  })
+  return $fetch('/api/_wp/cf7-form', { query: { id } })
 })
 
 if (error.value) {

@@ -12,7 +12,7 @@ const useWpPost = async ({ type = 'posts', id, slug }: Options = {}) => {
   const route = useRoute()
   const query = id ? id : slug || route.params.slug
 
-  const { data, error } = await useAsyncData<Post>('post', async () => {
+  const { data, error } = await useAsyncData<Post>(`post-${type}-${query}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
 
     const url = id ? `${apiEndpoint}/${type}/${id}` : `${apiEndpoint}/${type}?slug=${query}`

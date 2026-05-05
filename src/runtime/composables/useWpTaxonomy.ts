@@ -1,4 +1,4 @@
-import { useAsyncData, useRuntimeConfig, useRoute } from '#imports'
+import { useAsyncData, useRuntimeConfig } from '#imports'
 import consola from 'consola'
 import type { Taxonomy } from '../types'
 
@@ -10,14 +10,14 @@ interface Options {
 const useWpTaxonomy = async ({ taxonomy }: Options = {}) => {
   const query = taxonomy
 
-  const { data, error } = await useAsyncData<Taxonomy>('post', async () => {
+  const { data, error } = await useAsyncData<Taxonomy>(`taxonomy-${query}`, async () => {
     const { apiEndpoint } = useRuntimeConfig().public.wordpress
 
-    const taxonomy = await $fetch(`${apiEndpoint}/taxonomies/${query}`)
+    const taxonomyData = await $fetch(`${apiEndpoint}/taxonomies/${query}`)
     const terms = await $fetch(`${apiEndpoint}/${query}`)
-  
+
     return {
-      ...taxonomy as Taxonomy,
+      ...taxonomyData as Taxonomy,
       terms,
     } as Taxonomy
   })

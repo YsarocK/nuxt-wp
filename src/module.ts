@@ -31,7 +31,8 @@ declare module 'nuxt/schema' {
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'nuxt-wp',
-    configKey: 'wordpress'
+    configKey: 'wordpress',
+    compatibility: { nuxt: '>=3.13.0' }
   },
   defaults: {
     apiEndpoint: process.env.WP_API_ENDPOINT,
@@ -67,7 +68,10 @@ export default defineNuxtModule<ModuleOptions>({
       prefix: 'Wp'
     })
     addImportsDir(resolver.resolve('./runtime', "composables"));
-    addServerHandler({ route:"/api/submit-form", method:"post", handler: resolver.resolve('./runtime/server/api/submit-form') });
+    addServerHandler({ route: '/api/submit-form', method: 'post', handler: resolver.resolve('./runtime/server/api/submit-form') });
+    addServerHandler({ route: '/api/_wp/menu', method: 'get', handler: resolver.resolve('./runtime/server/api/_wp/menu') });
+    addServerHandler({ route: '/api/_wp/settings', method: 'get', handler: resolver.resolve('./runtime/server/api/_wp/settings') });
+    addServerHandler({ route: '/api/_wp/cf7-form', method: 'get', handler: resolver.resolve('./runtime/server/api/_wp/cf7-form') });
   }
 })
 
