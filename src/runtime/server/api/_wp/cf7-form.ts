@@ -1,4 +1,5 @@
 import { defineEventHandler, getQuery } from 'h3'
+import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   const { id } = getQuery(event)
@@ -7,8 +8,9 @@ export default defineEventHandler(async (event) => {
     return new Response('Missing id query parameter', { status: 400 })
   }
 
-  const { apiEndpointShort } = useRuntimeConfig().public.wordpress
-  const { applicationUser, applicationPassword } = useRuntimeConfig().wordpress
+  const config = useRuntimeConfig(event)
+  const { apiEndpointShort } = config.public.wordpress
+  const { applicationUser, applicationPassword } = config.wordpress
 
   if (!applicationUser || !applicationPassword) {
     return new Response('WP_APPLICATION_USER or WP_APPLICATION_PASSWORD are not defined', { status: 500 })
