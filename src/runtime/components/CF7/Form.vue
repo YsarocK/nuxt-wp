@@ -13,12 +13,18 @@
 
 <script setup lang="ts">
 import consola from 'consola';
-import { WpCF7Email, WpCF7Submit, WpCF7Text, WpCF7Textarea } from '#components';
+import { WpCF7Acceptance, WpCF7Checkbox, WpCF7Email, WpCF7Select, WpCF7Submit, WpCF7Text, WpCF7Textarea } from '#components';
 
 const getFieldComponent = (type: string) => {
   switch (type) {
+    case 'acceptance':
+      return WpCF7Acceptance
+    case 'checkbox':
+      return WpCF7Checkbox
     case 'email':
       return WpCF7Email
+    case 'select':
+      return WpCF7Select
     case 'submit':
       return WpCF7Submit
     case 'text':
@@ -35,6 +41,8 @@ const { id, wpcf7_unit_tag } = defineProps<{
   wpcf7_unit_tag: string,
 }>()
 
+const emit = defineEmits<{ success: [] }>()
+
 const { data: form, error } = await useAsyncData<any>(`form-${id}`, async () => {
   return $fetch('/api/_wp/cf7-form', { query: { id } })
 })
@@ -43,17 +51,17 @@ if (error.value) {
   consola.error(error.value)
 }
 
-const fields = ref(form.value.properties.form.fields.map((field: any) => ({
+const fields = ref((form.value?.properties?.form?.fields ?? []).map((field: any) => ({
   ...field,
   type: field.type.replace('*', ''),
   required: field.type.includes('*')
 })))
 
 const formDataModel = () => {
-  const data: Record<string, string> = {}
+  const data: Record<string, any> = {}
   fields.value.forEach((field: any) => {
-    if(field.name === '') return
-    data[field.name] = ''
+    if (field.name === '') return
+    data[field.name] = field.type === 'checkbox' ? [] : ''
   })
   data._wpcf7_unit_tag = wpcf7_unit_tag
   return data
@@ -80,6 +88,10 @@ const handleSubmit = async (e: Event) => {
 
   formResponse.status = res.status
   formResponse.message = res.message
+
+  if (res.status === 'mail_sent') {
+    emit('success')
+  }
 
   if (res.invalid_fields) {
     fields.value.forEach((field: any) => {

@@ -11,13 +11,17 @@ export default defineEventHandler(async (event) => {
 
   const body: {
     id: string | number
-    formData: Record<string, string>
-  
+    formData: Record<string, string | string[]>
   } = await readBody(event)
 
   const formDataPayload = new FormData()
   for (const key in body.formData) {
-    formDataPayload.append(key, body.formData[key])
+    const value = body.formData[key]
+    if (Array.isArray(value)) {
+      value.forEach((v) => formDataPayload.append(`${key}[]`, v))
+    } else {
+      formDataPayload.append(key, value)
+    }
   }
   
   const res = await $fetch(`${apiEndpointShort}/contact-form-7/v1/contact-forms/${body.id}/feedback`, {
