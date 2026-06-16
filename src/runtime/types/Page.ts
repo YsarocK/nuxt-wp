@@ -59,5 +59,7 @@ export type Page = {
           templated: boolean
       }[]
   },
-  acf: any
+  acf: any,
+  lang?: string,
+  translations?: Record<string, number>,
 }

@@ -8,6 +8,11 @@ export interface ModuleOptions {
   applicationUser?: string | undefined,
   applicationPassword?: string | undefined,
   homeSlug: string,
+  polylang?: {
+    enabled?: boolean,
+    defaultLanguage?: string,
+    languages?: string[],
+  }
 }
 
 declare module 'nuxt/schema' {
@@ -17,6 +22,11 @@ declare module 'nuxt/schema' {
       apiEndpointShort: string | undefined,
       additonnalQueryParams: string,
       homeSlug: string,
+      polylang?: {
+        enabled?: boolean,
+        defaultLanguage?: string,
+        languages?: string[],
+      }
     }
   }
 
@@ -53,7 +63,8 @@ export default defineNuxtModule<ModuleOptions>({
       apiEndpoint: options.apiEndpoint + '/wp/v2',
       apiEndpointShort: options.apiEndpointShort,
       additonnalQueryParams: options.additonnalQueryParams,
-      homeSlug: options.homeSlug
+      homeSlug: options.homeSlug,
+      polylang: options.polylang,
     }
 
     // Apply nuxt.config.ts private options
